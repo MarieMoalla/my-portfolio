@@ -1,0 +1,25 @@
+@if (project) {
+  <article class="page-section project-detail">
+    <a routerLink="/projects" class="back-link">&larr; Back to Projects</a>
+    <h1>{{ project.title }}</h1>
+    <div class="card__tags">
+      @for (tag of project.tags; track tag) {
+        <span class="tag">{{ tag }}</span>
+      }
+    </div>
+    <p class="project-detail__description">{{ project.description }}</p>
+    <div class="project-detail__links">
+      @if (project.liveUrl) {
+        <a [href]="project.liveUrl" target="_blank" rel="noopener" class="btn btn--primary">View Live &nearr;</a>
+      }
+      @if (project.githubUrl) {
+        <a [href]="project.githubUrl" target="_blank" rel="noopener" class="btn btn--secondary">GitHub &nearr;</a>
+      }
+    </div>
+  </article>
+} @else {
+  <div class="page-section">
+    <p>Project not found.</p>
+    <a routerLink="/projects" class="back-link">&larr; Back to Projects</a>
+  </div>
+}

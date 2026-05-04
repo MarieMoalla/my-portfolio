@@ -1,0 +1,20 @@
+<section class="page-section about">
+  <h1>About Me</h1>
+  <div class="about__bio">
+    <p>
+      Hi! I'm a frontend developer passionate about building clean, accessible web experiences
+      and sharing what I learn through writing.
+    </p>
+    <p>
+      I work primarily with Angular and TypeScript, and I enjoy exploring new tools in the
+      frontend ecosystem.
+    </p>
+  </div>
+
+  <h2>Skills</h2>
+  <ul class="skills-list">
+    @for (skill of skills; track skill) {
+      <li class="tag">{{ skill }}</li>
+    }
+  </ul>
+</section>

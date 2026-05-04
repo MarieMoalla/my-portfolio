@@ -1,0 +1,25 @@
+<section class="page-section">
+  <h1>Projects</h1>
+  <div class="card-grid">
+    @for (project of projects; track project.id) {
+      <div class="card">
+        <h2 class="card__title">{{ project.title }}</h2>
+        <p>{{ project.summary }}</p>
+        <div class="card__tags">
+          @for (tag of project.tags; track tag) {
+            <span class="tag">{{ tag }}</span>
+          }
+        </div>
+        <div class="card__actions">
+          <a [routerLink]="['/projects', project.slug]" class="card__link">Details &rarr;</a>
+          @if (project.liveUrl) {
+            <a [href]="project.liveUrl" target="_blank" rel="noopener" class="card__link">Live &nearr;</a>
+          }
+          @if (project.githubUrl) {
+            <a [href]="project.githubUrl" target="_blank" rel="noopener" class="card__link">GitHub &nearr;</a>
+          }
+        </div>
+      </div>
+    }
+  </div>
+</section>

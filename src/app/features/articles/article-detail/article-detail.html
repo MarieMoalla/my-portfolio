@@ -1,0 +1,27 @@
+@if (article) {
+  <div class="inner-page">
+    <a routerLink="/articles" class="back-link">&larr; Back to Articles</a>
+    <article class="article-body">
+      <span class="section-label">{{ article.tags[0] }}</span>
+      <h1>{{ article.title }}</h1>
+      <div class="article-meta">
+        <span>{{ article.publishedAt }}</span>
+        <span>&middot;</span>
+        <span>{{ article.readTime }} min read</span>
+      </div>
+      <div class="article-tags">
+        @for (tag of article.tags; track tag) {
+          <span class="tag">{{ tag }}</span>
+        }
+      </div>
+      <div class="article-content">
+        <p>{{ article.content }}</p>
+      </div>
+    </article>
+  </div>
+} @else {
+  <div class="inner-page">
+    <a routerLink="/articles" class="back-link">&larr; Back to Articles</a>
+    <p style="color: var(--color-muted)">Article not found.</p>
+  </div>
+}

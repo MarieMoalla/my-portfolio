@@ -1,0 +1,31 @@
+<div class="inner-page">
+  <div class="articles-header" appAos="fade-up">
+    <a routerLink="/" class="back-link">&larr; Back to Portfolio</a>
+    <span class="section-label">Blog</span>
+    <h1>All Articles</h1>
+    <p class="articles-desc">Thoughts, tutorials, and deep dives on frontend development.</p>
+  </div>
+
+  <div class="tag-filter" appAos="fade-up" [aosDelay]="100">
+    <button class="tag" [class.active]="activeTag === null" (click)="setTag(null)">All</button>
+    @for (tag of allTags; track tag) {
+      <button class="tag" [class.active]="activeTag === tag" (click)="setTag(tag)">{{ tag }}</button>
+    }
+  </div>
+
+  <div class="card-grid">
+    @for (article of filteredArticles; track article.id; let i = $index) {
+      <div class="card" appAos="fade-up" [aosDelay]="i * 80">
+        <span class="card__meta">{{ article.publishedAt }} &middot; {{ article.readTime }} min read</span>
+        <h2 class="card__title">{{ article.title }}</h2>
+        <p>{{ article.summary }}</p>
+        <div class="card__tags">
+          @for (tag of article.tags; track tag) {
+            <span class="tag">{{ tag }}</span>
+          }
+        </div>
+        <a [routerLink]="['/articles', article.slug]" class="card__link">Read Article &rarr;</a>
+      </div>
+    }
+  </div>
+</div>

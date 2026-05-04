@@ -1,0 +1,31 @@
+<nav class="navbar" [class.navbar--scrolled]="scrolled">
+  <button class="navbar__brand" (click)="navigateTo('home')" aria-label="Go to top">
+    <span class="navbar__brand-dot"></span>Mariem Moalla
+  </button>
+
+  <button class="navbar__toggle" (click)="toggleMenu()" aria-label="Toggle menu" [class.open]="menuOpen">
+    <span></span><span></span><span></span>
+  </button>
+
+  <ul class="navbar__links" [class.open]="menuOpen">
+    <li>
+      <button (click)="navigateTo('home')" [class.active]="activeSection === 'home'">Home</button>
+    </li>
+    <li>
+      <button (click)="navigateTo('about')" [class.active]="activeSection === 'about'">About</button>
+    </li>
+    <li>
+      <button (click)="navigateTo('resume')" [class.active]="activeSection === 'resume'">Resume</button>
+    </li>
+    <li>
+      <button (click)="navigateTo('projects')" [class.active]="activeSection === 'projects'">Projects</button>
+    </li>
+    <li>
+      <a routerLink="/articles" routerLinkActive="active" (click)="menuOpen = false">Articles</a>
+    </li>
+    <li>
+      <button (click)="navigateTo('contact')" [class.active]="activeSection === 'contact'"
+              class="nav-cta">Hire Me</button>
+    </li>
+  </ul>
+</nav>
