@@ -2,6 +2,7 @@ import { Component, PLATFORM_ID, Inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import emailjs from '@emailjs/browser';
 import { AnimateOnScrollDirective } from '../../shared/directives/animate-on-scroll.directive';
 import { ProjectsService } from '../../core/services/projects';
 import { ArticlesService } from '../../core/services/articles';
@@ -82,6 +83,18 @@ export class HomeComponent {
 
   form = { name: '', email: '', message: '' };
   submitted = false;
+  sending = false;
+  sendError = false;
+
+  // ── EmailJS credentials ───────────────────────────────────────
+  // 1. Create a free account at https://emailjs.com
+  // 2. Add an Email Service (e.g. Gmail) → copy the Service ID below
+  // 3. Create an Email Template → copy the Template ID below
+  //    Template variables to use: {{from_name}}, {{from_email}}, {{message}}
+  // 4. Go to Account → API Keys → copy your Public Key below
+  private readonly EMAILJS_SERVICE_ID  = 'YOUR_SERVICE_ID';
+  private readonly EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';
+  private readonly EMAILJS_PUBLIC_KEY  = 'YOUR_PUBLIC_KEY';
 
   constructor(
     private projectsService: ProjectsService,
@@ -99,9 +112,26 @@ export class HomeComponent {
   }
 
   onSubmit(): void {
-    // TODO: Replace with a real email service or API
-    console.log('Contact form submitted:', this.form);
-    this.submitted = true;
+    this.sending = true;
+    this.sendError = false;
+
+    emailjs.send(
+      this.EMAILJS_SERVICE_ID,
+      this.EMAILJS_TEMPLATE_ID,
+      {
+        from_name:  this.form.name,
+        from_email: this.form.email,
+        message:    this.form.message,
+      },
+      this.EMAILJS_PUBLIC_KEY
+    ).then(() => {
+      this.submitted = true;
+      this.sending = false;
+      this.form = { name: '', email: '', message: '' };
+    }).catch(() => {
+      this.sendError = true;
+      this.sending = false;
+    });
   }
 }
 

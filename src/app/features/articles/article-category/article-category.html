@@ -1,0 +1,46 @@
+<div class="inner-page">
+  <div class="category-header" appAos="fade-up">
+    <a routerLink="/articles" class="back-link">&larr; All Articles</a>
+    <span class="section-label">Category</span>
+    @if (category) {
+      <h1>{{ category.name }}</h1>
+      <p class="category-desc">{{ category.description }}</p>
+    } @else {
+      <h1>Category Not Found</h1>
+    }
+  </div>
+
+  <div class="card-grid">
+    @for (article of articles; track article.id; let i = $index) {
+      <a
+        class="card"
+        [href]="article.externalUrl || '/articles/' + article.slug"
+        [target]="article.externalUrl ? '_blank' : '_self'"
+        rel="noopener noreferrer"
+        appAos="fade-up"
+        [aosDelay]="i * 80"
+      >
+        <div class="card__meta-row">
+          <span class="card__meta-item">{{ formatDate(article.publishedAt) }}</span>
+          <span class="card__meta-sep">&middot;</span>
+          <span class="card__meta-item">{{ article.readTime }} min read</span>
+          @if (article.views) {
+            <span class="card__meta-sep">&middot;</span>
+            <span class="card__meta-item card__views">{{ article.views }} views</span>
+          }
+        </div>
+        <h2 class="card__title">{{ article.title }}</h2>
+        <p>{{ article.summary }}</p>
+        <div class="card__tags">
+          @for (tag of article.tags; track tag) {
+            <span class="tag">{{ tag }}</span>
+          }
+        </div>
+      </a>
+    }
+
+    @if (articles.length === 0) {
+      <p class="empty">No articles found in this category.</p>
+    }
+  </div>
+</div>

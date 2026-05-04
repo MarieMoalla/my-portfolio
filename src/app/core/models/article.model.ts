@@ -8,4 +8,14 @@ export interface Article {
   publishedAt: string;
   readTime: number; // minutes
   coverImage?: string;
+  category: string;
+  categorySlug: string;
+  views?: string;
+  externalUrl?: string;
+}
+
+export interface ArticleCategory {
+  name: string;
+  slug: string;
+  description: string;
 }
